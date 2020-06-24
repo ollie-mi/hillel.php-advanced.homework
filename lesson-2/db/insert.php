@@ -21,7 +21,7 @@ foreach ($requiredFields as $field) {
         $rawData[$field] = trim($_POST[$field]);
     } else {
         $fieldName = ucfirst(str_replace('_', ' ', $field));
-        $_SESSION['errors']['message'] = "The field $fieldName must be filled in!";
+        $_SESSION['errors']['insert_message'] = "The field $fieldName must be filled in!";
         header('Location: /lesson-2/index.php');
         exit();
     }
