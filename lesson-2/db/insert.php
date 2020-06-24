@@ -37,8 +37,27 @@ $data = [
     'last_name' => htmlspecialchars($rawData['last_name']),
 ];
 
+if (!empty($_POST['birthday']) && DateTime::createFromFormat('Y-m-d', $_POST['birthday']) !== false) {
+    $data['birthday'] = $_POST['birthday'];
+} else {
+    $data['birthday'] = null;
+}
+
 if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
     $_SESSION['errors']['message'] = 'Email address is not valid!';
+}
+
+// Check if email is exists
+$query = "SELECT * FROM `user` WHERE `email` = :email";
+$stmt = $database->prepare($query);
+$stmt->execute([
+    'email' => $data['email']
+]);
+$user = $stmt->fetch();
+if (!empty($user)) {
+    $_SESSION['errors']['message'] = 'This email already exists! Please, choose another one';
+    header('Location: /lesson-2/index.php');
+    exit();
 }
 
 if (isset($_SESSION['errors'])) {
@@ -52,22 +71,23 @@ if (isset($_SESSION['errors'])) {
 
 
         //Query 1: Attempt to insert the login and password to User table
-        $query = "INSERT INTO `user` (`login`, `password`) VALUES (:login, :password)";
+        $query = "INSERT INTO `user` (`login`, `password`, `email`) VALUES (:login, :password, :email)";
         $stmt = $database->prepare($query);
         $stmt->execute([
             'login' => $data['login'],
-            'password' => $data['password']
+            'password' => $data['password'],
+            'email' => $data['email']
         ]);
 
         //Query 2: Attempt to insert the User's profile.
-        $query = "INSERT INTO `user_profile` (`first_name`, `last_name`, `email`, `phone`) 
-                    VALUES (:first_name, :last_name, :email, :phone)";
+        $query = "INSERT INTO `user_profile` (`first_name`, `last_name`, `phone`, `birthday`) 
+                    VALUES (:first_name, :last_name, :phone, :birthday)";
         $stmt = $database->prepare($query);
         $stmt->execute([
             'first_name' => $data['first_name'],
             'last_name' => $data['last_name'],
-            'email' => $data['email'],
             'phone' => $data['phone'],
+            'birthday' => $data['birthday']
         ]);
 
         // Commit the changes
