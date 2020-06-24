@@ -17,7 +17,7 @@ if (!is_null($userId) && !is_null($newName)) {
     ]);
     $user = $stmt->fetch();
     if (empty($user)) {
-        $_SESSION['update_errors']['message'] = 'There is no user with Id = ' . $userId;
+        $_SESSION['errors']['update_message'] = 'There is no user with Id = ' . $userId;
         header('Location: /lesson-2/index.php');
         exit();
     }
@@ -30,9 +30,9 @@ if (!is_null($userId) && !is_null($newName)) {
         'new_name' => $newName
     ]);
 
-    $_SESSION['update_success']['message'] = "Congratulations! User's name has been updated!";
+    $_SESSION['success']['update_message'] = "Congratulations! User's name has been updated!";
 } else {
-    $_SESSION['update_errors']['message'] = "All fields should be filled in!";
+    $_SESSION['errors']['update_message'] = "All fields should be filled in!";
 }
 
 header('Location: /lesson-2/index.php');

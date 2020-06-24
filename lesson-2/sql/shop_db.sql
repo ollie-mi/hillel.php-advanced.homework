@@ -99,8 +99,8 @@ CREATE TABLE IF NOT EXISTS `hillel_shop`.`user_profile` (
     CONSTRAINT `fk_user_profile_user`
         FOREIGN KEY (`user_id`)
             REFERENCES `hillel_shop`.`user` (`id`)
-            ON DELETE RESTRICT
-            ON UPDATE RESTRICT
+            ON DELETE CASCADE
+            ON UPDATE CASCADE
 ) ENGINE = InnoDB;
 
 --

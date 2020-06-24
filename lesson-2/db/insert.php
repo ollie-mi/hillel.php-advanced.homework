@@ -44,7 +44,7 @@ if (!empty($_POST['birthday']) && DateTime::createFromFormat('Y-m-d', $_POST['bi
 }
 
 if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
-    $_SESSION['errors']['message'] = 'Email address is not valid!';
+    $_SESSION['errors']['insert_message'] = 'Email address is not valid!';
 }
 
 // Check if email is exists
@@ -55,7 +55,7 @@ $stmt->execute([
 ]);
 $user = $stmt->fetch();
 if (!empty($user)) {
-    $_SESSION['errors']['message'] = 'This email already exists! Please, choose another one';
+    $_SESSION['errors']['insert_message'] = 'This email already exists! Please, choose another one';
     header('Location: /lesson-2/index.php');
     exit();
 }
@@ -101,13 +101,13 @@ if (isset($_SESSION['errors'])) {
         file_put_contents($dir . '/db_logs.log', $e->getMessage() . PHP_EOL);
         // Rollback the transaction
         $database->rollBack();
-        $_SESSION['errors']['message'] = 'Something gone wrong! Try again';
+        $_SESSION['errors']['insert_message'] = 'Something gone wrong! Try again';
         header('Location: /lesson-2/index.php');
         exit();
     }
 
     if (!isset($_SESSION['errors'])) {
-        $_SESSION['success']['message'] = 'Congratulations! User is added to database!';
+        $_SESSION['success']['insert_message'] = 'Congratulations! User is added to database!';
         header('Location: /lesson-2/index.php');
         exit();
     }

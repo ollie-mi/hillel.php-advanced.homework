@@ -13,16 +13,21 @@
     <div class="container">
         <!-- INSERT USER -->
         <div class="insert-form">
+            <?php if (isset($_SESSION['db_errors'])): ?>
+            <div class="alert alert-danger" role="alert">
+                <p><?= $_SESSION['db_errors']['message'] ?></p>
+            </div>
+            <?php endif ?>
             <div class="row">
                 <div class="mx-auto my-5">
                     <h1 class="text-center mb-5">Insert User</h1>
-                    <?php if (isset($_SESSION['success'])): ?>
+                    <?php if (isset($_SESSION['success']['insert_message'])): ?>
                         <div class="alert alert-success" role="alert">
-                            <p><?= $_SESSION['success']['message'] ?></p>
+                            <p><?= $_SESSION['success']['insert_message'] ?></p>
                         </div>
-                    <?php elseif (isset($_SESSION['errors'])): ?>
+                    <?php elseif (isset($_SESSION['errors']['insert_message'])): ?>
                         <div class="alert alert-danger" role="alert">
-                            <p><?= $_SESSION['errors']['message'] ?></p>
+                            <p><?= $_SESSION['errors']['insert_message'] ?></p>
                         </div>
                     <?php endif ?>
                     <form action="db/insert.php" method="post" class="justify-content-center">
@@ -72,20 +77,20 @@
             <div class="row">
                 <div class="mx-auto my-5">
                     <h1 class="text-center mb-5">Update User</h1>
-                    <?php if (isset($_SESSION['update_success'])): ?>
+                    <?php if (isset($_SESSION['success']['update_message'])): ?>
                         <div class="alert alert-success" role="alert">
-                            <p><?= $_SESSION['update_success']['message'] ?></p>
+                            <p><?= $_SESSION['success']['update_message'] ?></p>
                         </div>
-                    <?php elseif (isset($_SESSION['update_errors'])): ?>
+                    <?php elseif (isset($_SESSION['errors']['update_message'])): ?>
                         <div class="alert alert-danger" role="alert">
-                            <p><?= $_SESSION['update_errors']['message'] ?></p>
+                            <p><?= $_SESSION['errors']['update_message'] ?></p>
                         </div>
                     <?php endif ?>
                     <form action="db/update.php" method="post" class="justify-content-center">
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="inputId">User Id</label>
-                                <input type="text" class="form-control" id="inputId" name="user_id">
+                                <input type="number" class="form-control" id="inputId" name="user_id">
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="inputNewName">New Name</label>
@@ -97,17 +102,35 @@
                 </div>
             </div>
         </div>
+        <!-- DELETE USER -->
+        <div class="delete-form">
+            <div class="row">
+                <div class="mx-auto my-5">
+                    <h1 class="text-center mb-5">Delete User</h1>
+                    <?php if (isset($_SESSION['success']['delete_message'])): ?>
+                        <div class="alert alert-success" role="alert">
+                            <p><?= $_SESSION['success']['delete_message'] ?></p>
+                        </div>
+                    <?php elseif (isset($_SESSION['errors']['delete_message'])): ?>
+                        <div class="alert alert-danger" role="alert">
+                            <p><?= $_SESSION['errors']['delete_message'] ?></p>
+                        </div>
+                    <?php endif ?>
+                    <form action="db/delete.php" method="post" class="justify-content-center">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="inputId">User Id</label>
+                                <input type="number" class="form-control" id="inputId" name="user_id">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Delete User</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <!--    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"-->
-    <!--            integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"-->
-    <!--            crossorigin="anonymous"></script>-->
-    <!--    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"-->
-    <!--            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"-->
-    <!--            crossorigin="anonymous"></script>-->
-    <!--    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"-->
-    <!--            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"-->
-    <!--            crossorigin="anonymous"></script>-->
+
     </body>
     </html>
-<?php unset($_SESSION['errors'], $_SESSION['success'], $_SESSION['update_success'], $_SESSION['update_errors']) ?>
+<?php unset($_SESSION['db_errors'], $_SESSION['errors'], $_SESSION['success']) ?>

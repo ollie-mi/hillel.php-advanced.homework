@@ -34,7 +34,7 @@ try {
         throw new \RuntimeException(sprintf('Directory "%s" was not created', $dir));
     }
     file_put_contents($dir . '/db_logs.log', $e->getMessage() . PHP_EOL);
-    $_SESSION['errors']['message'] = 'Database connection error!';
+    $_SESSION['db_errors']['message'] = 'Database connection error!';
     header('Location: /lesson-2/index.php');
     exit();
 }
