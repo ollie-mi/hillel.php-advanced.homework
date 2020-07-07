@@ -1,6 +1,6 @@
 <?php
 session_start();
-include_once __DIR__ . '/db/sql_injection.php';
+//include_once __DIR__ . '/db/sql_injection.php';
 
 ?>
     <!doctype html>
