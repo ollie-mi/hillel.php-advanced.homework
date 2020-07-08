@@ -1,0 +1,15 @@
+{
+    "name": "ollie/lesson-4",
+    "type": "library",
+    "license": "BSD",
+    "authors": [
+        {
+            "name": "ollie",
+            "email": "o.mialkivska@gmail.com"
+        }
+    ],
+    "require": {
+        "symfony/var-dumper": "^5.1"
+    },
+    "description": "lesson-4"
+}
