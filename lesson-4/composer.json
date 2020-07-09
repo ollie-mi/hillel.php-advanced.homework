@@ -11,5 +11,13 @@
     "require": {
         "symfony/var-dumper": "^5.1"
     },
-    "description": "lesson-4"
+    "description": "lesson-4",
+
+    "autoload": {
+        "psr-4": {
+            "Classes\\": "Classes/",
+            "Interfaces\\": "Interfaces/",
+            "Traits\\": "Traits/"
+        }
+    }
 }
